@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Telainicial from './pages/Telainicial'
 import Telacadastro from './pages/Telacadastro'
 import Telaservicos from './pages/Telaservicos'
+import Cart from './pages/Cart'
+import Details from "./pages/Details"
 
 export default class App extends React.Component {
 
@@ -23,6 +25,14 @@ export default class App extends React.Component {
     this.setState({telaAtual: "servicos"})
   }
 
+  goToCarrinho = () => {
+    this.setState({telaAtual: "carrinho"})
+  }
+
+  goToDetalhes = () => {
+    this.setState({telaAtual: "detalhes"})
+  }
+
   // Switch para a escolha das telas.
   selectPage = () => {
     switch (this.state.telaAtual){
@@ -31,7 +41,11 @@ export default class App extends React.Component {
       case "cadastro":
         return <Telacadastro goToInicial={this.goToInicial} />
       case "servicos":
-          return <Telaservicos goToInicial={this.goToInicial} />
+          return <Telaservicos goToInicial={this.goToInicial} goToCarrinho={this.goToCarrinho} goToDetalhes={this.goToDetalhes}/>
+      case "carrinho":
+        return <Cart goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
+        case "detalhes":
+        return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
       default:
         return <Telainicial goToCadastro={this.goToCadastro} />
     }
