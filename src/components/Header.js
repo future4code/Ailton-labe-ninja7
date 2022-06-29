@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const Cabecalho = styled.div`
 background-color: #f05b00;
-height: 70px;
+height: 4em;
 display: flex;
 flex-direction: row;
 align-items: center;
