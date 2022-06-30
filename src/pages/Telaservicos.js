@@ -20,6 +20,7 @@ import {
   AddImg,
 } from "./estilos";
 import AddCart from "../assets/carrinho-cart-preto.png";
+import Details from "./Details";
 
 const Cabecalho = styled.div`
   background-color: #f05b00;
@@ -38,13 +39,13 @@ export default class Telaservicos extends Component {
     valorMin: "",
     valorMax: "",
     pesquisa: "",
+    filtro: "Preço Crescente",
   };
 
   updatePesquisa = (evento) => {
     this.setState({
       pesquisa: evento.target.value
     })
-   
   }
 
   updateValorMin = (evento) => {
@@ -59,10 +60,17 @@ export default class Telaservicos extends Component {
     })
   }
 
+  onChangeFilter = (evento) => {
+    this.setState({
+      filtro: evento.target.value
+    })
+
+  }
+
   componentDidMount() {
     this.getAllJobs();
   }
-
+  
   // Função para localizar os serviços
   getAllJobs = () => {
     axios
@@ -80,30 +88,46 @@ export default class Telaservicos extends Component {
       });
   };
 
+  
   render() {
-    const jobsList = this.state.listaDeJobs.filter(job =>{
-      return job.description.toLowerCase().includes(this.state.pesquisa.toLowerCase())
+    const jobsList = this.state.listaDeJobs
+    .filter(job => {
+      return job.title.toLowerCase().includes(this.state.pesquisa.toLowerCase())
     })
-    .filter(job=>{
-      return this.state.valorMin === '' || job.price >= this.state.valorMin
-    })
-    .filter(job=>{
-      return this.state.valorMax === '' || job.price <= this.state.valorMax
-    })
-    .map((job) => {
-      return (
-        <JobsCard>
-          <TituloCard key={job.id}>{job.description}</TituloCard>
-          <TextoCard>
-            Até {job.dueDate.split('T')[0]} por <b>R$:{job.price},00 </b>
-          </TextoCard>
-          <FooterCard>
-            <button onClick={this.props.goToDetalhes}>DETALHES</button>
-            <AddImg src={AddCart}></AddImg>
-          </FooterCard>
-        </JobsCard>
-      );
-    });
+      .filter(job => {
+        return this.state.valorMin === '' || job.price >= this.state.valorMin
+      })
+      .filter(job => {
+        return this.state.valorMax === '' || job.price <= this.state.valorMax
+      })
+      .sort((valorAtual, proxValor) => {
+        switch (this.state.filtro) {
+          case "Preço Crescente":
+            return valorAtual.price - proxValor.price
+          case "Preço Decrescente":
+            return proxValor.price - valorAtual.price
+          case "Job":
+            return valorAtual.title.localeCompare(proxValor.title)
+          case "Prazo":
+            return new Date(valorAtual.dueDate).getTime() - new Date(proxValor.dueDate).getTime()
+          default:
+            return valorAtual.price - proxValor.price
+        }
+      })
+      .map((job) => {
+        return (
+          <JobsCard key={job.id}>
+            <TituloCard key={job.id}>{job.title}</TituloCard>
+            <TextoCard>
+              Até {job.dueDate.split('T')[0]} por <b>R$:{job.price},00 </b>
+            </TextoCard>
+            <FooterCard>
+              <button onClick={() => this.props.goToDetalhes(job.id)}>DETALHES</button>
+              <AddImg src={AddCart}></AddImg>
+            </FooterCard>
+          </JobsCard>
+        );
+      });
 
     return (
       <div>
@@ -123,7 +147,11 @@ export default class Telaservicos extends Component {
           </div>
         </Cabecalho>
         <Filtros>
-          <select placeholder="Ordenar por">
+          <select placeholder="Ordenar por"
+            name="order"
+            value={this.state.filtro}
+            onChange={this.onChangeFilter}
+          >
             <option value="Preço Crescente">Preço Crescente</option>
             <option value="Preço Decrescente">Preço Decrescente</option>
             <option value="Job">Job</option>

@@ -95,7 +95,7 @@ export const JobsCard = styled.div`
     margin: .5rem;
     background-color: #edc4a1;
     height: 120%;
-    width: fit-content;
+    width: 20rem;
     
 `
 export const Card = styled.div`
