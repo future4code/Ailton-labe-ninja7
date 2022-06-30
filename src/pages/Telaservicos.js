@@ -119,7 +119,7 @@ export default class Telaservicos extends Component {
           <JobsCard key={job.id}>
             <TituloCard key={job.id}>{job.title}</TituloCard>
             <TextoCard>
-              Até {job.dueDate.split('T')[0]} por <b>R$:{job.price},00 </b>
+              Até {job.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(job.dueDate)) : ""} por <b>R$:{job.price},00 </b>
             </TextoCard>
             <FooterCard>
               <button onClick={() => this.props.goToDetalhes(job.id)}>DETALHES</button>

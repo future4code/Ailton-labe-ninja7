@@ -4,6 +4,7 @@ import Telacadastro from './pages/Telacadastro'
 import Telaservicos from './pages/Telaservicos'
 import Cart from './pages/Cart'
 import Details from "./pages/Details"
+import Cadastro from './components/cadastro/cadastro'
 
 export default class App extends React.Component {
 
