@@ -8,15 +8,16 @@ import axios from "axios";
 
 export default class Cadastro extends Component {
   state = {
-    nomeNinja: "",
+    jobTitulo: "",
     descricao: "",
     valor: "",
     date: "",
-    formapagamento: []
+    formapagamento: [],
+    // formapagamento: "",
   };
   // Inputs Controlados
   onChangeNome = (event) => {
-    this.setState({ nomeNinja: event.target.value });
+    this.setState({ jobTitulo: event.target.value });
   };
   onChangeDescricao = (event) => {
     this.setState({ descricao: event.target.value });
@@ -53,7 +54,7 @@ export default class Cadastro extends Component {
   // Função para adicionar um servico usando o Axios
   createServico = () => {
     const body = {
-      title: this.state.nomeNinja,
+      title: this.state.jobTitulo,
       description: this.state.descricao,
       price: Number(this.state.valor),
       paymentMethods: [toString(this.state.formapagamento)],
@@ -74,6 +75,7 @@ export default class Cadastro extends Component {
           description: "",
           price: "",
           paymentMethods: [],
+          // paymentMethods: "",
           dueDate: ""
         });
       })
@@ -89,13 +91,13 @@ export default class Cadastro extends Component {
         <DivCadastro>
           <h2>Vamos fazer seu cadastro de Ninja</h2>
           <InputCadastro
-            placeholder={"Nome"}
-            value={this.state.nomeNinja}
+            placeholder={"Seu Serviço"}
+            value={this.state.jobTitulo}
             onChange={this.onChangeNome}
           />
           <hr />
           <InputCadastroDescricao
-            placeholder={"Seu serviço"}
+            placeholder={"Detalhes do serviço"}
             value={this.state.descricao}
             onChange={this.onChangeDescricao}
           />
@@ -111,7 +113,6 @@ export default class Cadastro extends Component {
             name="Formas de Pagamento"
             id="pagamento"
             onChange={this.onChangeFormaPagamento}
-            value={this.state.formapagamento}
           >
             <option value="debito">Cartão de Débito</option>
             <option value="credito">Cartão de Crédito</option>

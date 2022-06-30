@@ -10,6 +10,7 @@ export default class App extends React.Component {
   // Declarando o estado para troca de telas.
   state = {
     telaAtual: "inicial",
+    clickedProduto: "",
   }
 
   // Funções de troca de telas.
@@ -29,8 +30,8 @@ export default class App extends React.Component {
     this.setState({telaAtual: "carrinho"})
   }
 
-  goToDetalhes = () => {
-    this.setState({telaAtual: "detalhes"})
+  goToDetalhes = (id) => {
+    this.setState({telaAtual: "detalhes", clickedProduto: id})
   }
 
   // Switch para a escolha das telas.
@@ -45,7 +46,7 @@ export default class App extends React.Component {
       case "carrinho":
         return <Cart goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
         case "detalhes":
-        return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos} goToCarrinho={this.goToCarrinho} />
+        return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos} goToCarrinho={this.goToCarrinho} id={this.state.clickedProduto}/>
       default:
         return <Telainicial goToCadastro={this.goToCadastro} />
     }
