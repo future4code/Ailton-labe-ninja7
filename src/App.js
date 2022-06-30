@@ -45,7 +45,7 @@ export default class App extends React.Component {
       case "carrinho":
         return <Cart goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
         case "detalhes":
-        return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
+        return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos} goToCarrinho={this.goToCarrinho} />
       default:
         return <Telainicial goToCadastro={this.goToCadastro} />
     }

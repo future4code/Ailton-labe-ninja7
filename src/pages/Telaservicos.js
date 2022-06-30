@@ -95,7 +95,7 @@ export default class Telaservicos extends Component {
         <JobsCard>
           <TituloCard key={job.id}>{job.description}</TituloCard>
           <TextoCard>
-            Até {job.dueDate} por <b>R$:{job.price},00 </b>
+            Até {job.dueDate.split('T')[0]} por <b>R$:{job.price},00 </b>
           </TextoCard>
           <FooterCard>
             <button onClick={this.props.goToDetalhes}>DETALHES</button>
