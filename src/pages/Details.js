@@ -65,7 +65,7 @@ export default class Details extends Component {
         <Main>
         <h1>{this.state.jobDetail.title}</h1>
         <p>Aceita: {this.state.jobDetail.paymentMethods}</p>
-        <p>Até {this.state.jobDetail.dueDate}  por  <strong>R${this.state.jobDetail.price},00</strong></p>
+        <p>Até {this.state.jobDetail.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(this.state.jobDetail.dueDate)) : ""}  por  <strong>R${this.state.jobDetail.price},00</strong></p>
         <p>{this.state.jobDetail.description}</p>
         <button>Adicionar ao Carrinho</button>
         <button onClick={this.props.goToListaServicos}>Voltar para Lista</button>

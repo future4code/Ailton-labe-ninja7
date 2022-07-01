@@ -2,22 +2,27 @@ import React, { Component } from "react";
 import {
   DivCadastro,
   InputCadastro,
-  InputCadastroDescricao
+  InputCadastroDescricao,
+  H2,
+  ContainerCadastro,
+  ButtonCadastro,
+  SelectCadastro,
+  ButtonInicial
 } from "./cadastroestilo";
 import axios from "axios";
 
 export default class Cadastro extends Component {
   state = {
-    jobTitulo: "",
+    nomeNinja: "",
     descricao: "",
     valor: "",
     date: "",
     formapagamento: [],
-    // formapagamento: "",
+    copiaformapagamento: "",
   };
   // Inputs Controlados
   onChangeNome = (event) => {
-    this.setState({ jobTitulo: event.target.value });
+    this.setState({ nomeNinja: event.target.value });
   };
   onChangeDescricao = (event) => {
     this.setState({ descricao: event.target.value });
@@ -29,9 +34,12 @@ export default class Cadastro extends Component {
     this.setState({ date: event.target.value });
     console.log(event.target.value);
   };
+  
   onChangeFormaPagamento = (event) => {
-    this.setState({ formapagamento: event.target.value });
-    console.log(event.target.value);
+    const copiaformapagamento = [...this.state.formapagamento]
+    copiaformapagamento.push(event.target.value)
+    this.setState({ formapagamento: copiaformapagamento });
+  
   };
   // Função para localizar os serviços
   getServicos = () => {
@@ -54,10 +62,10 @@ export default class Cadastro extends Component {
   // Função para adicionar um servico usando o Axios
   createServico = () => {
     const body = {
-      title: this.state.jobTitulo,
+      title: this.state.nomeNinja,
       description: this.state.descricao,
       price: Number(this.state.valor),
-      paymentMethods: [toString(this.state.formapagamento)],
+      paymentMethods: this.state.formapagamento,
       dueDate: this.state.date
     };
     axios
@@ -75,7 +83,6 @@ export default class Cadastro extends Component {
           description: "",
           price: "",
           paymentMethods: [],
-          // paymentMethods: "",
           dueDate: ""
         });
       })
@@ -87,49 +94,53 @@ export default class Cadastro extends Component {
 
   render() {
     return (
-      <div>
+      <ContainerCadastro>
         <DivCadastro>
-          <h2>Vamos fazer seu cadastro de Ninja</h2>
+          <H2>Vamos fazer seu cadastro de Ninja</H2>
+          <br/>
           <InputCadastro
-            placeholder={"Seu Serviço"}
-            value={this.state.jobTitulo}
+            placeholder={"Nome"}
+            value={this.state.nomeNinja}
             onChange={this.onChangeNome}
           />
-          <hr />
+          <br />
           <InputCadastroDescricao
-            placeholder={"Detalhes do serviço"}
+            placeholder={"Seu serviço"}
             value={this.state.descricao}
             onChange={this.onChangeDescricao}
           />
-          <hr />
+          <br />
           <InputCadastro
             type={"number"}
             placeholder={"Valor"}
             value={this.state.valor}
             onChange={this.onChangeValor}
           />
-          <hr />
-          <select
+          <br />
+          <SelectCadastro
             name="Formas de Pagamento"
             id="pagamento"
             onChange={this.onChangeFormaPagamento}
+            value={this.state.formapagamento}
           >
             <option value="debito">Cartão de Débito</option>
             <option value="credito">Cartão de Crédito</option>
             <option value="pix">PIX</option>
             <option value="Boleto">Boleto</option>
-          </select>
-          <hr />
+          </SelectCadastro>
+          <br />
           <InputCadastro
             type={"date"}
             placeholder={"Data de Validade"}
             value={this.state.date}
             onChange={this.onChangeDate}
           />
-          <hr />
-          <button onClick={this.createServico}>Cadastrar um Ninja</button>
+          <br />
+          <ButtonCadastro onClick={this.createServico}>Cadastrar um Ninja</ButtonCadastro>
+          <br/>
+          <ButtonInicial onClick={this.props.goToInicial}>Tela Inicial</ButtonInicial>
         </DivCadastro>
-      </div>
+      </ContainerCadastro>
     );
   }
 }

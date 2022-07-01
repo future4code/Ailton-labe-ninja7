@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/static/js/main.ca6f7335.js",
+    "static/media/ninja_main.png": "/static/media/ninja_main.578a276fd7c2020448a7.png",
+    "static/media/ninja.png": "/static/media/ninja.8ba90ce1f22d2a31ef7d.png",
+    "index.html": "/index.html",
+    "main.ca6f7335.js.map": "/static/js/main.ca6f7335.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ca6f7335.js"
+  ]
+}

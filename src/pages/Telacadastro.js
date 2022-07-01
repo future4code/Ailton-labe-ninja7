@@ -11,6 +11,11 @@ state = {
     telaAtual: "cadastro",
 }
 
+//   // Funções de troca de telas.
+//   goToInicial = () => {
+//     this.setState({telaAtual: "inicial"})
+//   }
+
 render() {
 
 return (
@@ -22,8 +27,7 @@ return (
         <Main>
             <br/>
             <div>
-                <Cadastro />
-                <button onClick={this.props.goToInicial}>Tela Inicial</button>
+                <Cadastro goToInicial={this.props.goToInicial}/>
             </div>
         </Main>
     </Container>

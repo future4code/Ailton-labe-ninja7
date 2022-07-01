@@ -39,9 +39,6 @@ export const Button = styled.button`
   width: 150px;
   height: 40px;
   border-radius: 10px;
-
-  
-  
 `
 export const MainButton = styled.div`
   display: flex;
