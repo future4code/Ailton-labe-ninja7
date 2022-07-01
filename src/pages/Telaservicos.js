@@ -20,7 +20,8 @@ import {
   AddImg,
 } from "./estilos";
 import AddCart from "../assets/carrinho-cart-preto.png";
-import Details from "./Details";
+import Cart from "./Cart";
+
 
 const Cabecalho = styled.div`
   background-color: #f05b00;
@@ -88,6 +89,25 @@ export default class Telaservicos extends Component {
       });
   };
 
+  // Função para localizar deletar os serviços
+
+  deleteJob = (id) => {
+    axios
+  .delete(`https://labeninjas.herokuapp.com/jobs/${id}`,
+  {
+    headers: {
+      Authorization: "0f182c1c-2a1e-44b8-8de6-92e39774d598",
+    },
+  })
+  .then((response) =>{
+    alert("Serviço apagado com sucesso!");
+    this.getAllJobs()
+  })
+  .catch((erro) =>{
+    alert("Erro ao apagar o Serviço...");
+  })
+}
+
   
   render() {
     const jobsList = this.state.listaDeJobs
@@ -122,8 +142,9 @@ export default class Telaservicos extends Component {
               Até {job.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(job.dueDate)) : ""} por <b>R$:{job.price},00 </b>
             </TextoCard>
             <FooterCard>
-              <button onClick={() => this.props.goToDetalhes(job.id)}>DETALHES</button>
-              <AddImg src={AddCart}></AddImg>
+              <button onClick={() => this.deleteJob(job.id)}>&nbsp;Apagar JOB&nbsp;</button>
+              <button onClick={() => this.props.goToDetalhes(job.id)}>&nbsp;DETALHES&nbsp;</button>
+              <button onClick={() => this.props.onClickAdd(job.id, job.title, job.price)} ><AddImg src={AddCart}></AddImg></button>
             </FooterCard>
           </JobsCard>
         );

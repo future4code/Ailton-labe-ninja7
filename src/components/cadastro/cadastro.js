@@ -99,13 +99,13 @@ export default class Cadastro extends Component {
           <H2>Vamos fazer seu cadastro de Ninja</H2>
           <br/>
           <InputCadastro
-            placeholder={"Nome"}
+            placeholder={"Serviço"}
             value={this.state.nomeNinja}
             onChange={this.onChangeNome}
           />
           <br />
           <InputCadastroDescricao
-            placeholder={"Seu serviço"}
+            placeholder={"Descrição do Serviço"}
             value={this.state.descricao}
             onChange={this.onChangeDescricao}
           />
@@ -121,7 +121,6 @@ export default class Cadastro extends Component {
             name="Formas de Pagamento"
             id="pagamento"
             onChange={this.onChangeFormaPagamento}
-            value={this.state.formapagamento}
           >
             <option value="debito">Cartão de Débito</option>
             <option value="credito">Cartão de Crédito</option>
