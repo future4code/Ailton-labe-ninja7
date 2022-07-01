@@ -144,7 +144,7 @@ export default class Telaservicos extends Component {
             <FooterCard>
               <button onClick={() => this.deleteJob(job.id)}>&nbsp;Apagar JOB&nbsp;</button>
               <button onClick={() => this.props.goToDetalhes(job.id)}>&nbsp;DETALHES&nbsp;</button>
-              <button onClick={() => this.props.onClickAdd(job.id, job.title, job.price)} ><AddImg src={AddCart}></AddImg></button>
+              <button onClick={() => this.props.addToCarrinho(job.id)} ><AddImg src={AddCart}></AddImg></button>
             </FooterCard>
           </JobsCard>
         );

@@ -5,7 +5,7 @@ import ninja from "../assets/ninja.png";
 import { Container, Logo, Titulo, GoCart, HeaderNinja, Main } from "./estilos";
 import ImgCart from "../assets/carrinho-cart.png"
 import axios from "axios";
-import Telaservicos from "./Telaservicos";
+import CarrinhoCard from "../components/CarrinhoCard";
 
 const Cabecalho = styled.div`
   background-color: #f05b00;
@@ -16,26 +16,6 @@ const Cabecalho = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-const CardCarrinho = styled.span`
-display: flex;
-justify-content: space-between;
-width: 50%;
-background-color: blueviolet;
-margin-top:5rem;
-margin-bottom:2rem;
-border: 1px solid;
-border-radius: 10px;
-padding-left:2rem;
-padding-right:2rem;
-padding-top:1rem;
-padding-bottom:1rem;
-`
-
-const TextoTitulo = styled.span`
-font-size: 2rem;
-color: white;
-`
 
 const CardPagamento = styled.span`
 display: flex;
@@ -54,7 +34,6 @@ padding-bottom:1rem;
 export default class Cart extends Component {
   state = {
     listaCarrinho: [],
-    novaListaCarrinho:[],
   }
 
   componentDidMount() {
@@ -69,35 +48,34 @@ export default class Cart extends Component {
         },
       })
       .then((resp) =>{
-        // this.setState({listaCarrinho:resp.data})
-        const novaListaCarrinho = [...this.state.listaCarrinho]
-        novaListaCarrinho.push(resp.data)
-        this.setState({listaCarrinho: novaListaCarrinho})
+        this.setState({listaCarrinho:resp.data})
       })
       .catch((erro) =>{
         console.log(erro)
       })
     }
 
-    onClickAdd = (id, title, price) => {
-      const novaLista = [...this.state.listaCarrinho];
-      const novaProduto = {
-        id: id,
-        title: title,
-        price: price
-      };
-      novaLista.push(novaProduto);
-      this.setState({listaCarrinho: novaLista});
-    };
-
     onClickAlert = () => {
       return alert("Compra Realizada com Sucesso!")
     }
 
+    
+
   render() {
+
+    const mapCarrinho = this.state.listaCarrinho.map((job) =>{
+      if (this.state.listaCarrinho.length !== 0){
+        return(
+          <CarrinhoCard
+          key={job.id}
+          title={job.title}
+          price={job.price}
+          />
+        )
+      }
+    })
+
     return (
-      
-<div>
       <Container>
       <Cabecalho>
           <HeaderNinja>
@@ -112,20 +90,14 @@ export default class Cart extends Component {
           </div>
         </Cabecalho>
         <Main>
-
-        <CardCarrinho>
-          <TextoTitulo>{this.state.listaCarrinho.title}</TextoTitulo>
-          <TextoTitulo>R${this.state.listaCarrinho.price},00</TextoTitulo>
-          <button>Remover</button>
-        </CardCarrinho>
+        {mapCarrinho}
+        
         <CardPagamento>
             <span>Total das Compras: R$,00</span>
             <button onClick={this.onClickAlert}>🛒 Pagar</button>
         </CardPagamento>
         </Main>
         </Container>
-        <Telaservicos onClickAdd={this.onClickAdd} />
-      </div>
     );
   }
 }

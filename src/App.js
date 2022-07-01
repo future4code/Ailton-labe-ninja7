@@ -38,7 +38,7 @@ export default class App extends React.Component {
   // função para adicionar no carrinho 
 
   addToCarrinho = (id) =>{
-    this.setState({telaAtual: "carrinho", clickedProduto: id})
+    this.setState({ clickedProduto: id})
   }
 
   // Switch para a escolha das telas.
