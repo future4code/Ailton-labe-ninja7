@@ -35,6 +35,12 @@ export default class App extends React.Component {
     this.setState({telaAtual: "detalhes", clickedProduto: id})
   }
 
+  // função para adicionar no carrinho 
+
+  addToCarrinho = (id) =>{
+    this.setState({telaAtual: "carrinho", clickedProduto: id})
+  }
+
   // Switch para a escolha das telas.
   selectPage = () => {
     switch (this.state.telaAtual){
@@ -43,9 +49,9 @@ export default class App extends React.Component {
       case "cadastro":
         return <Telacadastro goToInicial={this.goToInicial} />
       case "servicos":
-          return <Telaservicos goToInicial={this.goToInicial} goToCarrinho={this.goToCarrinho} goToDetalhes={this.goToDetalhes}/>
+          return <Telaservicos goToInicial={this.goToInicial} goToCarrinho={this.goToCarrinho} goToDetalhes={this.goToDetalhes} addToCarrinho={this.addToCarrinho}/>
       case "carrinho":
-        return <Cart goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos}/>
+        return <Cart goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos} id={this.state.clickedProduto}/>
         case "detalhes":
         return <Details goToInicial={this.goToInicial} goToListaServicos={this.goToListaServicos} goToCarrinho={this.goToCarrinho} id={this.state.clickedProduto}/>
       default:

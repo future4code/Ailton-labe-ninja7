@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import { HeaderNinja, Titulo, Logo, GoCart } from './estilos'
+import { HeaderNinja, Titulo, Logo, GoCart, AddImg } from './estilos'
 import ninja from "../assets/ninja.png"
 import ImgCarrinho from "../assets/cart.png"
 import axios from 'axios';
+import AddCart from "../assets/carrinho-cart-preto.png";
 
 const Cabecalho = styled.div`
   background-color: #f05b00;
@@ -19,7 +20,56 @@ const Main = styled.div`
  display: flex;
  align-items: center;
  flex-direction: column;
-margin-top:15%;
+margin-top:10%;
+`
+const TituloDetalhe = styled.p`
+color: white;
+background-color: #f05b00;
+font-size: 2.5rem;
+border: 1px solid #f05b00;
+border-radius: 10px;
+margin-bottom: 2rem;
+width: 20rem;
+display: flex;
+align-items: center;
+justify-content: center;
+
+`
+const PagamentoDetalhe = styled.span`
+background-color: yellowgreen;
+font-size: 1.5rem;
+border: 1px solid;
+border-radius: 10px;
+display: flex;
+`
+const PagamentoDetalhe1 = styled.span`
+font-size: 1.5rem;
+display: flex;
+`
+const DataDetalhe = styled.span`
+font-size: 1.5rem;
+display: flex;
+margin-top: 1rem;
+margin-bottom: 1rem;
+text-decoration: underline;
+`
+const DescricaoDetalhe1 = styled.span`
+font-size: 1.5rem;
+display: flex;
+margin-bottom: 1rem;
+`
+const BotaoAddCarrinho = styled.button`
+background-color: blueviolet;
+font-size: 1.5rem;
+border: 1px solid;
+border-radius: 10px;
+margin-bottom: 1rem;
+`
+const BotaoVoltar = styled.button`
+font-size: 1.5rem;
+border: 1px solid;
+border-radius: 10px;
+margin-bottom: 1rem;
 `
 
 export default class Details extends Component {
@@ -63,12 +113,12 @@ export default class Details extends Component {
           </div>
         </Cabecalho>
         <Main>
-        <h1>{this.state.jobDetail.title}</h1>
-        <p>Aceita: {this.state.jobDetail.paymentMethods}</p>
-        <p>Até {this.state.jobDetail.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(this.state.jobDetail.dueDate)) : ""}  por  <strong>R${this.state.jobDetail.price},00</strong></p>
-        <p>{this.state.jobDetail.description}</p>
-        <button>Adicionar ao Carrinho</button>
-        <button onClick={this.props.goToListaServicos}>Voltar para Lista</button>
+        <TituloDetalhe>{this.state.jobDetail.title}</TituloDetalhe>
+        <PagamentoDetalhe1>Aceita:<PagamentoDetalhe> &nbsp; {this.state.jobDetail.paymentMethods} &nbsp; </PagamentoDetalhe></PagamentoDetalhe1>
+        <DataDetalhe>Até &nbsp; {this.state.jobDetail.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(this.state.jobDetail.dueDate)) : ""} &nbsp; por &nbsp; <strong> R${this.state.jobDetail.price},00</strong></DataDetalhe>
+        <DescricaoDetalhe1>{this.state.jobDetail.description}</DescricaoDetalhe1>
+        <BotaoAddCarrinho> &nbsp; <AddImg src={AddCart}></AddImg> &nbsp; Adicionar ao Carrinho &nbsp; </BotaoAddCarrinho>
+        <BotaoVoltar onClick={this.props.goToListaServicos}>&nbsp; ↩ Voltar para Lista &nbsp;</BotaoVoltar>
         </Main>
        </div>
     )

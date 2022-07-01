@@ -29,7 +29,7 @@ export const Main = styled.div`
 export const Imagem = styled.img`
   justify-content: center;
   align-items: center;
-  width: 1000px;
+  width: 50rem;
 `
 
 export const Button = styled.button`
