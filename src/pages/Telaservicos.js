@@ -137,7 +137,7 @@ export default class Telaservicos extends Component {
       .map((job) => {
         return (
           <JobsCard key={job.id}>
-            <TituloCard key={job.id}>{job.title}</TituloCard>
+            <TituloCard>{job.title}</TituloCard>
             <TextoCard>
               Até {job.dueDate!=null ? new Intl.DateTimeFormat("pt-BR").format(new Date(job.dueDate)) : ""} por <b>R$:{job.price},00 </b>
             </TextoCard>

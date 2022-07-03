@@ -47,29 +47,39 @@ export default class Cart extends Component {
           Authorization: "0f182c1c-2a1e-44b8-8de6-92e39774d598",
         },
       })
-      .then((resp) =>{
-        this.setState({listaCarrinho:resp.data})
+      .then((resp) => {
+        this.setState(() => ({
+          listaCarrinho: [resp.data]
+        }))
+        console.log(resp.data)
       })
-      .catch((erro) =>{
+      .catch((erro) => {
         console.log(erro)
       })
-    }
+  }
 
-    onClickAlert = () => {
-      return alert("Compra Realizada com Sucesso!")
-    }
+  onClickAlert = () => {
+    return alert("Compra Realizada com Sucesso!")
+  }
 
-    
+
 
   render() {
+    const carrinhoSoma = this.state.listaCarrinho.map((item) => {
+      return item.price
+    });
+    let sum = 0;
+    for (let i = 0; i < carrinhoSoma.length; i++) {
+      sum += carrinhoSoma[i];
+    }
 
-    const mapCarrinho = this.state.listaCarrinho.map((job) =>{
-      if (this.state.listaCarrinho.length !== 0){
-        return(
+    const mapCarrinho = this.state.listaCarrinho.map((job) => {
+      if (this.state.listaCarrinho.length !== 0) {
+        return (
           <CarrinhoCard
-          key={job.id}
-          title={job.title}
-          price={job.price}
+            key={job.id}
+            title={job.title}
+            price={job.price}
           />
         )
       }
@@ -77,7 +87,7 @@ export default class Cart extends Component {
 
     return (
       <Container>
-      <Cabecalho>
+        <Cabecalho>
           <HeaderNinja>
             <Logo src={ninja} onClick={this.props.goToInicial}></Logo>
             <Titulo>LabeNinjas</Titulo>
@@ -90,14 +100,15 @@ export default class Cart extends Component {
           </div>
         </Cabecalho>
         <Main>
-        {mapCarrinho}
-        
-        <CardPagamento>
-            <span>Total das Compras: R$,00</span>
+          {mapCarrinho}
+
+          <CardPagamento>
+            <span>Total das Compras: R${sum},00</span>
             <button onClick={this.onClickAlert}>🛒 Pagar</button>
-        </CardPagamento>
+          </CardPagamento>
+          <button onClick={this.props.goToListaServicos}>Adiquirir mais serviços</button>
         </Main>
-        </Container>
+      </Container>
     );
   }
 }
